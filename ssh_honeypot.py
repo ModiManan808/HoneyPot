@@ -53,7 +53,7 @@ def emulated_shell(channel,client_ip):
                 response = b'\n' + b"honeypot.conf" + b"\r\n"
                 creds_logger.info(f'Command {command.strip()}' + 'executed by ' + f'{client_ip}')
             elif command.strip() == b'cat honeypot.conf':
-                response=b'\n' + b"go to honey.com" + b'\r\n'
+                response=b'\n' + b"go to http://127.0.0.1:5000" + b'\r\n'
                 creds_logger.info(f'Command {command.strip()}' + 'executed by ' + f'{client_ip}')
             else:
                 response = b"\n" + bytes(command.strip()) + b"\r\n"
@@ -153,4 +153,5 @@ def honeypot(address,port,username,password) :
         except  Exception as error:
             print(error)
 
-honeypot('127.0.0.1',2223,username=None,password=None)
+if __name__ == "__main__":
+    honeypot('127.0.0.1',2223,username=None,password=None)
