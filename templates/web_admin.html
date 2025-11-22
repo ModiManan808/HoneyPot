@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>uniRP - NFSU Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e8e8e8 0%, #f5f5f5 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background decorative elements */
+        .bg-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        .dots {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(180, 180, 180, 0.4) 2px, transparent 2px);
+            background-size: 20px 20px;
+        }
+
+        .dots-1 { top: 10%; right: 15%; }
+        .dots-2 { bottom: 15%; left: 20%; }
+        .dots-3 { top: 40%; right: 40%; }
+
+        /* Hands decoration */
+        .hands {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 150px;
+            z-index: 1;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+        }
+
+        .hand {
+            width: 80px;
+            height: 100px;
+            opacity: 0.6;
+        }
+
+        /* Main container */
+        .login-container {
+            position: relative;
+            z-index: 10;
+            background: white;
+            border-radius: 40px;
+            padding: 50px 60px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            max-width: 450px;
+            width: 90%;
+            border: 3px solid #d0d0d0;
+        }
+
+        /* Logo section */
+        .logo-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .unirp-logo {
+            display: inline-block;
+            background: #17a2b8;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .unirp-logo::after {
+            content: '';
+            position: absolute;
+            right: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .university-logo {
+            max-width: 250px;
+            margin: 20px auto;
+        }
+
+        .university-name {
+            font-size: 14px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        /* Login heading */
+        h2 {
+            color: #c82333;
+            font-size: 32px;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        /* Form styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #17a2b8;
+        }
+
+        .password-group {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #999;
+        }
+
+        /* Button and link section */
+        .form-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 25px;
+        }
+
+        .login-btn {
+            background: #c82333;
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-transform: uppercase;
+        }
+
+        .login-btn:hover {
+            background: #a71d2a;
+        }
+
+        .forgot-password {
+            color: #333;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        /* Powered by */
+        .powered-by {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Error message */
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border: 1px solid #f5c6cb;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* Pause button */
+        .pause-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern">
+        <div class="dots dots-1"></div>
+        <div class="dots dots-2"></div>
+        <div class="dots dots-3"></div>
+    </div>
+
+    <div class="hands">
+        <svg class="hand" viewBox="0 0 100 150" style="fill: #8B7355;">
+            <path d="M30,150 L30,80 Q30,60 40,55 L45,55 L45,90 Q45,95 48,95 Q51,95 51,90 L51,45 Q51,40 55,40 Q59,40 59,45 L59,50 Q59,55 62,55 Q65,55 65,50 L65,48 Q65,43 69,43 Q73,43 73,48 L73,55 Q73,60 76,60 Q79,60 79,55 L79,53 Q79,48 83,48 Q87,48 87,53 L87,85 Q87,95 80,110 L70,130 Q65,140 55,145 Z"/>
+        </svg>
+        <svg class="hand" viewBox="0 0 100 150" style="fill: #6B9AC4;">
+            <path d="M30,150 L30,80 Q30,60 40,55 L45,55 L45,90 Q45,95 48,95 Q51,95 51,90 L51,45 Q51,40 55,40 Q59,40 59,45 L59,50 Q59,55 62,55 Q65,55 65,50 L65,48 Q65,43 69,43 Q73,43 73,48 L73,55 Q73,60 76,60 Q79,60 79,55 L79,53 Q79,48 83,48 Q87,48 87,53 L87,85 Q87,95 80,110 L70,130 Q65,140 55,145 Z"/>
+        </svg>
+        <svg class="hand" viewBox="0 0 100 150" style="fill: #C85A54;">
+            <path d="M30,150 L30,80 Q30,60 40,55 L45,55 L45,90 Q45,95 48,95 Q51,95 51,90 L51,45 Q51,40 55,40 Q59,40 59,45 L59,50 Q59,55 62,55 Q65,55 65,50 L65,48 Q65,43 69,43 Q73,43 73,48 L73,55 Q73,60 76,60 Q79,60 79,55 L79,53 Q79,48 83,48 Q87,48 87,53 L87,85 Q87,95 80,110 L70,130 Q65,140 55,145 Z"/>
+        </svg>
+    </div>
+
+    <div class="pause-btn">
+        <div style="width: 4px; height: 16px; background: #333; display: inline-block; margin: 0 2px;"></div>
+        <div style="width: 4px; height: 16px; background: #333; display: inline-block; margin: 0 2px;"></div>
+    </div>
+
+    <div class="login-container">
+        <div class="logo-section">
+            <div class="unirp-logo">uniRP</div>
+            <div class="university-logo">
+                <div style="color: #333; font-weight: 600; font-size: 15px; margin-bottom: 5px;">National Forensic</div>
+                <div style="color: #333; font-weight: 600; font-size: 15px; margin-bottom: 5px;">Sciences University</div>
+                <div style="color: #666; font-size: 11px;">Knowledge | Wisdom | Fulfilment</div>
+            </div>
+        </div>
+
+        <h2>Login</h2>
+
+        <div class="error-message {% if error %}show{% endif %}">
+            Invalid credentials. Please try again.
+        </div>
+
+        <form method="POST" action="/login">
+            <div class="form-group">
+                <input type="text" name="username" placeholder="Username" required>
+            </div>
+
+            <div class="form-group password-group">
+                <input type="password" name="password" id="password" placeholder="Password" required>
+                <span class="password-toggle" onclick="togglePassword()">👁</span>
+            </div>
+
+            <div class="form-footer">
+                <button type="submit" class="login-btn">Login</button>
+                <a href="#" class="forgot-password">Forgot Password ?</a>
+            </div>
+        </form>
+
+        <div class="powered-by">
+            Powered By : <strong>Bloomfield Innovations</strong>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+            } else {
+                passwordInput.type = 'password';
+            }
+        }
+    </script>
+</body>
+</html>
