@@ -26,7 +26,7 @@ def web_honeypot(input_username="admin",input_password="password"):
     def index():
         return render_template('web_admin.html')
     
-    @app.route('/wp-admin-login',methods=['POST'])
+    @app.route('/web_admin-login',methods=['POST'])
 
     def login () :
         username = request.form['username']
